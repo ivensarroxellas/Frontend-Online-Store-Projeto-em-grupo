@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import MainScreen from './pages/MainScreen';
 import './App.css';
 
@@ -15,8 +15,7 @@ class App extends React.Component {
   render() {
     const { nameEntered } = this.state;
     return (
-      <>
-        <p> </p>
+      <BrowserRouter>
         <Switch>
           <Route
             exact
@@ -27,7 +26,7 @@ class App extends React.Component {
             />) }
           />
         </Switch>
-      </>
+      </BrowserRouter>
     );
   }
 }
