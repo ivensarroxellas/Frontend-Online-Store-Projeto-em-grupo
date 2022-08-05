@@ -9,15 +9,14 @@ class App extends React.Component {
   };
 
   handleChange = (event) => {
-    this.setState(() => ({ [event.target.name]: event.target.value }),
-      this.handledButton);
+    this.setState(() => ({ [event.target.name]: event.target.value }));
   };
 
   render() {
     const { nameEntered } = this.state;
     return (
       <>
-        <p>olá</p>
+        <p> </p>
         <Switch>
           <Route
             exact
