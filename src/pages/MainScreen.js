@@ -7,7 +7,7 @@ class MainScreen extends Component {
     ready: false,
   }
 
-  handleClick = (event) => {
+  handleClicktoCart = (event) => {
     // Em vez de usar o History, usamos o redirect na linha 23 condicionada ao estado de um objeto.
     event.preventDefault();
     this.setState({
@@ -46,7 +46,7 @@ class MainScreen extends Component {
         <button
           type="submit"
           data-testid="shopping-cart-button"
-          onClick={ this.handleClick }
+          onClick={ this.handleClicktoCart }
         >
           Carrinho de Compras
         </button>
