@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import * as api from '../services/api';
 
 class MainScreen extends Component {
@@ -10,12 +10,12 @@ class MainScreen extends Component {
     products: [],
   };
   
-    handleClicktoCart = (event) => {
+  handleClicktoCart = (event) => {
     // Em vez de usar o History, usamos o redirect na linha 23 condicionada ao estado de um objeto.
-    event.preventDefault();
-    this.setState({
-      ready: true,
-    });
+   event.preventDefault();
+   this.setState({
+     ready: true,
+   });
   }
 
   handleChange = (event) => {
