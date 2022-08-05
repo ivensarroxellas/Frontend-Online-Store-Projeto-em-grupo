@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Category from '../Components/Category';
 import * as api from '../services/api';
 
 class MainScreen extends Component {
@@ -72,6 +73,9 @@ class MainScreen extends Component {
               Digite algum termo de pesquisa ou escolha uma categoria.
             </h1>)}
         </form>
+        <aside>
+          <Category />
+        </aside>
       </div>
     );
   }
