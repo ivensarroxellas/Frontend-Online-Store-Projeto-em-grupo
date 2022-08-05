@@ -13,7 +13,7 @@ class MainScreen extends Component {
     this.setState(() => ({ [name]: value }));
   };
 
-  handleSubmit = async (event) => {
+  handleSubmitSearch = async (event) => {
     event.preventDefault();
 
     const { nameEntered } = this.state;
@@ -45,7 +45,7 @@ class MainScreen extends Component {
           <button
             data-testid="query-button"
             type="submit"
-            onClick={ this.handleSubmit }
+            onClick={ this.handleSubmitSearch }
           >
             Pesquisar
           </button>
