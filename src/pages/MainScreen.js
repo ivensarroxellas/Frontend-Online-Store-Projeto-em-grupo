@@ -1,11 +1,26 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class MainScreen extends Component {
+  state = {
+    ready: false,
+  }
+
+  handleClick = (event) => {
+    // Em vez de usar o History, usamos o redirect na linha 23 condicionada ao estado de um objeto.
+    event.preventDefault();
+    this.setState({
+      ready: true,
+    });
+  }
+
   render() {
     const { nameEntered, onInputChange } = this.props;
+    const { ready } = this.state;
     return (
       <div>
+        { ready && <Redirect push to="/cart" />}
         <section>Seja bem-vindo, por favor insira no campo de busca o que deseja</section>
         <form>
 
@@ -28,6 +43,14 @@ class MainScreen extends Component {
               Digite algum termo de pesquisa ou escolha uma categoria.
             </h1>)}
         </form>
+        <button
+          type="submit"
+          data-testid="shopping-cart-button"
+          onClick={ this.handleClick }
+        >
+          Carrinho de Compras
+        </button>
+
       </div>
 
     );
