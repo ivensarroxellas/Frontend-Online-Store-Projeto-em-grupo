@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import MainScreen from './pages/MainScreen';
+import Cart from './pages/Cart';
 import './App.css';
 
 class App extends React.Component {
@@ -8,6 +9,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
+          <Route exact path="/cart" component={ Cart } />
           <Route
             exact
             path="/"
