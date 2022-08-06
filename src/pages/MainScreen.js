@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Category from '../Components/Category';
 import { Redirect } from 'react-router-dom';
+import Category from '../Components/Category';
 // import PropTypes from 'prop-types';
 import * as api from '../services/api';
 
