@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import Category from '../Components/Category';
 // import PropTypes from 'prop-types';
 import * as api from '../services/api';
 
@@ -85,6 +86,9 @@ class MainScreen extends Component {
               Digite algum termo de pesquisa ou escolha uma categoria.
             </h1>)}
         </form>
+        <aside>
+          <Category />
+        </aside>
         <button
           type="submit"
           data-testid="shopping-cart-button"
@@ -92,7 +96,6 @@ class MainScreen extends Component {
         >
           Carrinho de Compras
         </button>
-
       </div>
     );
   }
