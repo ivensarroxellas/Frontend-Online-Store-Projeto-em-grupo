@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import Card from '../Components/Card';
 import Category from '../Components/Category';
-// import PropTypes from 'prop-types';
 import * as api from '../services/api';
 
 class MainScreen extends Component {
-  state = {
-    nameEntered: '',
-    ready: false,
-    products: [],
-  };
+  // state = {
+  //   nameEntered: '',
+  //   ready: false,
+  //   products: [],
+  // };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchResult: undefined,
+      nameEntered: '',
+      ready: false,
+      products: [],
+    };
+  }
 
   handleClicktoCart = (event) => {
     // Em vez de usar o History, usamos o redirect na linha 23 condicionada ao estado de um objeto.
@@ -35,9 +46,21 @@ class MainScreen extends Component {
     this.setState({ products: results });
   }
 
+  handleGetByCategory = async (categoryId) => {
+    const category = await api.getByCategory(categoryId);
+    return category;
+  }
+
+  handleClick = async ({ target }) => {
+    const categoryItems = await this.handleGetByCategory(target.id);
+    this.setState({
+      searchResult: categoryItems.results,
+    });
+  }
+
   render() {
-    const { nameEntered, products } = this.state;
-    const { ready } = this.state;
+    const { ready, nameEntered, products, searchResult } = this.state;
+    // const { ready } = this.state;
 
     return (
       <div>
@@ -87,7 +110,19 @@ class MainScreen extends Component {
             </h1>)}
         </form>
         <aside>
-          <Category />
+          <Category onClick={ this.handleClick } />
+          <div>
+            {
+              searchResult !== undefined && searchResult
+                .map((product) => (
+                  <Card
+                    key={ product.id }
+                    result={ product }
+                  />
+                ))
+            }
+          </div>
+          {/* <Category /> */}
         </aside>
         <button
           type="submit"
