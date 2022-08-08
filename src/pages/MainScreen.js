@@ -40,7 +40,7 @@ class MainScreen extends Component {
     event.preventDefault();
 
     const { nameEntered } = this.state;
-    const apiObj = await api.getProductsFromCategoryAndQuery(nameEntered);
+    const apiObj = await api.getByQuery(nameEntered);
     const { results } = apiObj;
 
     this.setState({ products: results });
