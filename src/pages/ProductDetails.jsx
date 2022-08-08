@@ -34,8 +34,8 @@ class ProductDetails extends Component {
 }
 
 ProductDetails.propTypes = {
-  match: PropTypes.objectOf({
-    params: PropTypes.objectOf({
+  match: PropTypes.shape({
+    params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
