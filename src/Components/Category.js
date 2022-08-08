@@ -33,6 +33,7 @@ class Category extends Component {
               type="button"
               key={ id }
               data-testid="category"
+              id={ id }
               onClick={ onClick }
             >
               { name }
