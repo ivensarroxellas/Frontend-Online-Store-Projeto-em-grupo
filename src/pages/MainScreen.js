@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Card from '../Components/Card';
 import Category from '../Components/Category';
 import * as api from '../services/api';
@@ -96,7 +96,15 @@ class MainScreen extends Component {
                   >
                     {product.title}
                     <img src={ product.thumbnail } alt="Product Thumbnail" />
-                    {product.price}
+                    {`R$: ${product.price}`}
+                    <h3>
+                      <Link
+                        to={ `/product/${product.id}` }
+                        data-testid="product-detail-link"
+                      >
+                        Product Details
+                      </Link>
+                    </h3>
                   </li>
                 ))}
               </ul>
