@@ -88,7 +88,7 @@ class CartList extends React.Component {
             x
           </button>
         </div>
-        <Link to={ `/productdetail/${id}` }>
+        <Link to={ `/product/${id}` }>
           <section data-testid="product-detail-link">
             <div
               data-testid="product"
