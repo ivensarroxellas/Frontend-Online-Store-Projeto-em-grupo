@@ -1,22 +1,41 @@
-import React, { Component } from 'react';
+import React from 'react';
+import CartList from '../Components/CartList';
 
-export default class Cart extends Component {
-  state = {
-    // carrinho de compras
-    slot: [],
-  }
+class Cart extends React.Component {
+  readList = () => JSON.parse(localStorage.getItem('cartList'));
+
+  saveList = (list) => localStorage
+    .setItem('cartList', JSON.stringify(list));
 
   render() {
-    const { slot } = this.state;
+    if (!JSON.parse(localStorage.getItem('cartList'))) {
+      localStorage.setItem('cartList', JSON.stringify([]));
+    }
+    const cartList = this.readList();
     return (
-      <div>
-        {slot.length === 0
-          && (
-            <h1 data-testid="shopping-cart-empty-message">
-              Seu carrinho está vazio
-            </h1>
-          )}
+      <div className="shopping-card">
+        {
+          cartList.length === 0
+            ? (
+              <div
+                data-testid="shopping-cart-empty-message"
+              >
+                Seu carrinho está vazio
+              </div>)
+            : cartList.map((prod) => (
+              <CartList
+                key={ prod.prodId }
+                title={ prod.prodTitle }
+                image={ prod.prodImage }
+                price={ prod.prodPrice }
+                id={ prod.prodId }
+                qtd={ prod.prodQTD }
+              />
+            ))
+        }
       </div>
     );
   }
 }
+
+export default Cart;

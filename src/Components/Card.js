@@ -9,7 +9,13 @@ class Card extends Component {
     return (
       <div data-testid="product">
         <h3>
-          <Link to={ `/product/${id}` } data-testid="product-detail-link">{ title }</Link>
+          <Link
+            to={ `/product/:${id}` }
+            data-testid="product-detail-link"
+          >
+            { title }
+
+          </Link>
         </h3>
         <img
           src={ thumbnail }

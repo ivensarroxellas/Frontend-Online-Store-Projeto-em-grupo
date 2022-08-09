@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import Card from '../Components/Card';
+// import Card from '../Components/Card';
+import CardList from '../Components/CardList';
 import Category from '../Components/Category';
 import * as api from '../services/api';
 
@@ -114,11 +115,14 @@ class MainScreen extends Component {
           <div>
             {
               searchResult !== undefined && searchResult
-                .map((product) => (
-                  <Card
-                    key={ product.id }
-                    result={ product }
-                  />
+                .map((element) => (<CardList
+                  key={ element.id }
+                  id={ element.id }
+                  title={ element.title }
+                  image={ element.thumbnail }
+                  price={ element.price }
+                  onClick={ this.handleCartItem }
+                />
                 ))
             }
           </div>
