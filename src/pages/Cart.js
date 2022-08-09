@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CartList from '../Components/CartList';
 
 class Cart extends React.Component {
@@ -35,5 +35,6 @@ class Cart extends React.Component {
         }
       </div>
     );
-
+  }
+}
 export default Cart;
