@@ -14,12 +14,9 @@ class ProductDetails extends Component {
   }
 
   async componentDidMount() {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     const productDetail = await getByProductId(id);
+    console.log(productDetail);
     this.setState({ productDetail });
   }
 
@@ -29,21 +26,26 @@ class ProductDetails extends Component {
 
   render() {
     const {
-      productDetail: { title, thumbnail, price },
+      productDetail,
       ready,
     } = this.state;
+    const { clicked } = this.props;
     return (
       <div>
-        <p data-testid="product-detail-name">{title}</p>
-        <img src={ thumbnail } alt={ title } data-testid="product-detail-image" />
-        <p data-testid="product-detail-price">{price}</p>
+        <p data-testid="product-detail-name">{productDetail.title}</p>
+        <img
+          src={ productDetail.thumbnail }
+          alt={ productDetail.title }
+          data-testid="product-detail-image"
+        />
+        <p data-testid="product-detail-price">{productDetail.price}</p>
         <section>
           <Link to="/cart" data-testid="shopping-cart-button" />
         </section>
         <button
           data-testid="product-detail-add-to-cart"
           type="button"
-          onClick={ () => clicked(product) }
+          onClick={ () => clicked(productDetail) }
         >
           Adicionar ao Carrinho
         </button>
@@ -66,6 +68,7 @@ ProductDetails.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  clicked: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;
