@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+// import { Link, Redirect } from 'react-router-dom';
 import { getByProductId } from '../services/api';
+import CardDetails from '../Components/CardDetails';
 
 class ProductDetails extends Component {
   constructor() {
@@ -9,30 +10,37 @@ class ProductDetails extends Component {
 
     this.state = {
       productDetail: {},
-      ready: false,
+      // ready: false,
     };
   }
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const productDetail = await getByProductId(id);
-    console.log(productDetail);
     this.setState({ productDetail });
   }
 
-  redirectToCart = () => {
-    this.setState({ ready: true });
-  };
+  // redirectToCart = () => {
+  //   this.setState({ ready: true });
+  // };
 
   render() {
     const {
       productDetail,
-      ready,
+      // ready,
     } = this.state;
-    const { clicked } = this.props;
+    // const { clicked } = this.props;
     return (
       <div>
-        <p data-testid="product-detail-name">{productDetail.title}</p>
+        <CardDetails
+          key={ productDetail.id }
+          id={ productDetail.id }
+          title={ productDetail.title }
+          image={ productDetail.thumbnail }
+          price={ productDetail.price }
+          onClick={ this.redirectToCart }
+        />
+        {/* <p data-testid="product-detail-name">{productDetail.title}</p>
         <img
           src={ productDetail.thumbnail }
           alt={ productDetail.title }
@@ -56,7 +64,7 @@ class ProductDetails extends Component {
         >
           Ir para o carrinho
         </button>
-        {ready && <Redirect to="/cart" />}
+        {ready && <Redirect to="/cart" />} */}
       </div>
     );
   }
@@ -68,7 +76,7 @@ ProductDetails.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  clicked: PropTypes.func.isRequired,
+//   clicked: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;
