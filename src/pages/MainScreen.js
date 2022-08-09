@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-// import Card from '../Components/Card';
 import CardList from '../Components/CardList';
+import PropTypes from 'prop-types';
 import Category from '../Components/Category';
 import * as api from '../services/api';
 
 class MainScreen extends Component {
-  // state = {
-  //   nameEntered: '',
-  //   ready: false,
-  //   products: [],
-  // };
-
   constructor(props) {
     super(props);
 
@@ -61,7 +55,7 @@ class MainScreen extends Component {
 
   render() {
     const { ready, nameEntered, products, searchResult } = this.state;
-    // const { ready } = this.state;
+    const { clicked } = this.props;
 
     return (
       <div>
@@ -97,7 +91,24 @@ class MainScreen extends Component {
                   >
                     {product.title}
                     <img src={ product.thumbnail } alt="Product Thumbnail" />
-                    {product.price}
+                    {`R$: ${product.price}`}
+                    <h3>
+                      <Link
+                        to={ `/product/${product.id}` }
+                        data-testid="product-detail-link"
+                      >
+                        Product Details
+                      </Link>
+                    </h3>
+                    <section>
+                      <button
+                        data-testid="product-add-to-cart"
+                        type="button"
+                        onClick={ () => clicked(product) }
+                      >
+                        Adicionar ao Carrinho
+                      </button>
+                    </section>
                   </li>
                 ))}
               </ul>
@@ -126,7 +137,6 @@ class MainScreen extends Component {
                 ))
             }
           </div>
-          {/* <Category /> */}
         </aside>
         <button
           type="submit"
@@ -139,5 +149,9 @@ class MainScreen extends Component {
     );
   }
 }
+
+MainScreen.propTypes = {
+  onClick: PropTypes.func,
+}.isRequired;
 
 export default MainScreen;
