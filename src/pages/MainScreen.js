@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import CardList from '../Components/CardList';
-import Card from '../Components/Card';
 import PropTypes from 'prop-types';
+import CardList from '../Components/CardList';
 import Category from '../Components/Category';
 import * as api from '../services/api';
 
