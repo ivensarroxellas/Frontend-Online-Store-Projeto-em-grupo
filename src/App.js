@@ -4,6 +4,7 @@ import MainScreen from './pages/MainScreen';
 import Cart from './pages/Cart';
 import './App.css';
 import ProductDetails from './pages/ProductDetails';
+import Checkout from './pages/Checkout';
 
 class App extends React.Component {
   constructor(props) {
@@ -54,6 +55,11 @@ class App extends React.Component {
             exact
             path="/"
             render={ () => (<MainScreen clicked={ this.sendToCart } />) }
+          />
+          <Route
+            exact
+            path="/checkout"
+            component={ Checkout }
           />
         </Switch>
       </BrowserRouter>
