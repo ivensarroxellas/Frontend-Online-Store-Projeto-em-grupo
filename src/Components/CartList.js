@@ -30,7 +30,6 @@ class CartList extends React.Component {
 
   removeItem = ({ target }) => {
     const localList = this.readList();
-    console.log(target);
     this.saveList(localList.filter((item) => item.prodId !== target.value));
     target.parentElement.parentElement.remove();
     if (document.getElementsByClassName('shopping-card')[0].innerHTML === '') {
