@@ -90,7 +90,7 @@ class CardDetails extends React.Component {
           </section>
         </Link>
         <button
-          data-testid="product-add-to-cart"
+          data-testid="product-detail-add-to-cart"
           type="button"
           onClick={ this.handleCart }
         >
