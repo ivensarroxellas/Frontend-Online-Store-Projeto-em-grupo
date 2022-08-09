@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { getByProductId } from '../services/api';
 
 class ProductDetails extends Component {
@@ -9,25 +9,52 @@ class ProductDetails extends Component {
 
     this.state = {
       productDetail: {},
+      ready: false,
     };
   }
 
   async componentDidMount() {
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     const productDetail = await getByProductId(id);
     this.setState({ productDetail });
   }
 
+  redirectToCart = () => {
+    this.setState({ ready: true });
+  };
+
   render() {
-    const { productDetail: { title, thumbnail, price } } = this.state;
+    const {
+      productDetail: { title, thumbnail, price },
+      ready,
+    } = this.state;
     return (
       <div>
-        <p data-testid="product-detail-name">{ title }</p>
+        <p data-testid="product-detail-name">{title}</p>
         <img src={ thumbnail } alt={ title } data-testid="product-detail-image" />
-        <p data-testid="product-detail-price">{ price }</p>
+        <p data-testid="product-detail-price">{price}</p>
         <section>
           <Link to="/cart" data-testid="shopping-cart-button" />
         </section>
+        <button
+          data-testid="product-detail-add-to-cart"
+          type="button"
+          onClick={ () => clicked(product) }
+        >
+          Adicionar ao Carrinho
+        </button>
+        <button
+          type="button"
+          data-testid="shopping-cart-button"
+          onClick={ this.redirectToCart }
+        >
+          Ir para o carrinho
+        </button>
+        {ready && <Redirect to="/cart" />}
       </div>
     );
   }

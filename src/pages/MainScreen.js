@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import CardList from '../Components/CardList';
 import Category from '../Components/Category';
 import * as api from '../services/api';
