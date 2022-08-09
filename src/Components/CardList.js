@@ -38,7 +38,6 @@ class CardList extends React.Component {
     if (localList.length === 0) {
       this.saveList([...localList, cartList]);
     }
-    console.log(localList.length);
     localList.forEach((element) => {
       if (cartList.prodId === element.prodId) {
         this.setState((previous) => ({
