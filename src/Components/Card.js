@@ -10,10 +10,10 @@ class Card extends Component {
       <div data-testid="product">
         <h3>
           <Link
-            to={ `/product/${id}` }
+            to={ `/product/:${id}` }
             data-testid="product-detail-link"
           >
-            {title}
+            { title }
           </Link>
         </h3>
         <img

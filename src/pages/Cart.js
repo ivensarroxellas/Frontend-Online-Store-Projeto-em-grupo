@@ -1,43 +1,39 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import CartList from '../Components/CartList';
 
-class Cart extends Component {
+class Cart extends React.Component {
+  readList = () => JSON.parse(localStorage.getItem('cartList'));
+
+  saveList = (list) => localStorage
+    .setItem('cartList', JSON.stringify(list));
+
   render() {
-    const { productSelected } = this.props;
+    if (!JSON.parse(localStorage.getItem('cartList'))) {
+      localStorage.setItem('cartList', JSON.stringify([]));
+    }
+    const cartList = this.readList();
     return (
-      <ul>
-        {productSelected.length === 0
-          ? <h1 data-testid="shopping-cart-empty-message"> Seu carrinho está vazio</h1>
-          : productSelected.map((cartProduct) => (
-            <li key={ cartProduct.product.category_id }>
-              <h3 data-testid="shopping-cart-product-name">
-                {
-                  cartProduct.product.title
-                }
-
-              </h3>
-              <span>
-                R$
-                {' '}
-                { cartProduct.product.price }
-              </span>
-              <img
-                src={ cartProduct.product.thumbnail }
-                alt={ cartProduct.product.title }
+      <div className="shopping-card">
+        {
+          cartList.length === 0
+            ? (
+              <div
+                data-testid="shopping-cart-empty-message"
+              >
+                Seu carrinho está vazio
+              </div>)
+            : cartList.map((prod) => (
+              <CartList
+                key={ prod.prodId }
+                title={ prod.prodTitle }
+                image={ prod.prodImage }
+                price={ prod.prodPrice }
+                id={ prod.prodId }
+                qtd={ prod.prodQTD }
               />
-              <span data-testid="shopping-cart-product-quantity">
-                Quantidade de produtos :
-                {' '}
-                {cartProduct.quantity}
-              </span>
-            </li>))}
-      </ul>
+            ))
+        }
+      </div>
     );
-  }
-}
-
-Cart.propTypes = {
-  productSelected: PropTypes.arrayOf(PropTypes.object).isRequired,
-}.isRequired;
 
 export default Cart;

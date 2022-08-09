@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
-import Card from '../Components/Card';
+import PropTypes from 'prop-types';
+import CardList from '../Components/CardList';
 import Category from '../Components/Category';
 import * as api from '../services/api';
 
@@ -126,12 +126,14 @@ class MainScreen extends Component {
           <div>
             {
               searchResult !== undefined && searchResult
-                .map((product) => (
-                  <Card
-                    key={ product.id }
-                    result={ product }
-                    onClick={ () => clicked(product) }
-                  />
+                .map((element) => (<CardList
+                  key={ element.id }
+                  id={ element.id }
+                  title={ element.title }
+                  image={ element.thumbnail }
+                  price={ element.price }
+                  onClick={ this.handleCartItem }
+                />
                 ))
             }
           </div>
