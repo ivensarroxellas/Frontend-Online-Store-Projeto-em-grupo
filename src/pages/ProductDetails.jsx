@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Rating from '../Components/Rating';
 import { getByProductId } from '../services/api';
+import CardDetails from '../Components/CardDetails';
 
 class ProductDetails extends Component {
   constructor() {
@@ -94,7 +94,7 @@ class ProductDetails extends Component {
 
   render() {
     const {
-      productDetail: { title, thumbnail, price },
+      productDetail,
       email,
       rating,
       comment,
@@ -105,12 +105,14 @@ class ProductDetails extends Component {
 
     return (
       <div>
-        <p data-testid="product-detail-name">{ title }</p>
-        <img src={ thumbnail } alt={ title } data-testid="product-detail-image" />
-        <p data-testid="product-detail-price">{ price }</p>
-        <section>
-          <Link to="/cart" data-testid="shopping-cart-button" />
-        </section>
+        <CardDetails
+          key={ productDetail.id }
+          id={ productDetail.id }
+          title={ productDetail.title }
+          image={ productDetail.thumbnail }
+          price={ productDetail.price }
+          onClick={ this.redirectToCart }
+        />
         <form>
           <label htmlFor="inputEmail">
             Email

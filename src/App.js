@@ -1,8 +1,8 @@
 import React from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import MainScreen from './pages/MainScreen';
-import Cart from './pages/Cart';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
+import Cart from './pages/Cart';
+import MainScreen from './pages/MainScreen';
 import ProductDetails from './pages/ProductDetails';
 import Checkout from './pages/Checkout';
 
@@ -50,7 +50,14 @@ class App extends React.Component {
             path="/cart"
             render={ () => (<Cart productSelected={ productSelected } />) }
           />
-          <Route exact path="/product/:id" component={ ProductDetails } />
+          <Route
+            exact
+            path="/product/:id"
+            render={ (props) => (<ProductDetails
+              { ...props }
+              clicked={ this.sendToCart }
+            />) }
+          />
           <Route
             exact
             path="/"
