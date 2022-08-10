@@ -65,7 +65,7 @@ class CardList extends React.Component {
   };
 
   handleCards = () => {
-    const { title, image, price, id } = this.props;
+    const { title, image, price, id, freeShipping } = this.props;
     return (
       <div>
         <Link to={ `/product/${id}` }>
@@ -82,6 +82,7 @@ class CardList extends React.Component {
                 {' '}
                 { price }
               </p>
+              {freeShipping === true && <p data-testid="free-shipping">Frete Grátis</p>}
             </div>
           </section>
         </Link>
