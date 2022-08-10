@@ -37,7 +37,6 @@ class MainScreen extends Component {
     const { nameEntered } = this.state;
     const apiObj = await api.getByQuery(nameEntered);
     const { results } = apiObj;
-    console.log(results);
 
     this.setState({ products: results });
   }
