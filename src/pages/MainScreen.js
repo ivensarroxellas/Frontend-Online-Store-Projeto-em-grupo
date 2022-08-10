@@ -92,6 +92,8 @@ class MainScreen extends Component {
                     {product.title}
                     <img src={ product.thumbnail } alt="Product Thumbnail" />
                     {`R$: ${product.price}`}
+                    {product.shipping.free_shipping === true
+                      && <p data-testid="free-shipping">Frete Grátis</p>}
                     <h3>
                       <Link
                         to={ `/product/${product.id}` }
@@ -132,6 +134,7 @@ class MainScreen extends Component {
                   title={ element.title }
                   image={ element.thumbnail }
                   price={ element.price }
+                  freeShipping={ element.shipping.free_shipping }
                   onClick={ this.handleCartItem }
                 />
                 ))
