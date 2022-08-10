@@ -102,7 +102,7 @@ class ProductDetails extends Component {
       invalidField,
       isDisabled,
     } = this.state;
-    
+
     return (
       <div>
         <CardDetails
