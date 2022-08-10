@@ -132,6 +132,7 @@ class MainScreen extends Component {
                   title={ element.title }
                   image={ element.thumbnail }
                   price={ element.price }
+                  availableQuantity={ element.available_quantity }
                   onClick={ this.handleCartItem }
                 />
                 ))

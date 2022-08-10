@@ -9,6 +9,7 @@ class CartList extends React.Component {
     this.state = {
       counter: 1,
       newPrice: 0,
+      aQuantity: 0,
     };
   }
 
@@ -20,6 +21,7 @@ class CartList extends React.Component {
       counter: item.prodQTD,
       newPrice: item.prodPrice,
       originalPrice: price,
+      aQuantity: item.aQuantity,
     }));
   }
 
@@ -43,19 +45,21 @@ class CartList extends React.Component {
   }
 
   handleClick = ({ target }) => {
-    const { originalPrice } = this.state;
+    const { originalPrice, aQuantity } = this.state;
     if (target.id === 'more') {
       const storage = this.readList();
       const item = storage.find((element) => element.prodId === target.value);
-      item.prodQTD += 1;
-      item.prodPrice = item.prodQTD * originalPrice;
-      this.setState(({
-        counter: item.prodQTD,
-        newPrice: item.prodPrice,
-      }));
-      this.saveList(storage.filter((element) => element.prodId !== target.value));
-      const newLocalList = this.readList();
-      this.saveList([...newLocalList, item]);
+      if (item.prodQTD < aQuantity) {
+        item.prodQTD += 1;
+        item.prodPrice = item.prodQTD * originalPrice;
+        this.setState(({
+          counter: item.prodQTD,
+          newPrice: item.prodPrice,
+        }));
+        this.saveList(storage.filter((element) => element.prodId !== target.value));
+        const newLocalList = this.readList();
+        this.saveList([...newLocalList, item]);
+      }
     } else {
       const storage = this.readList();
       const item = storage.find((element) => element.prodId === target.value);
@@ -75,7 +79,7 @@ class CartList extends React.Component {
 
   handleCards = () => {
     const { title, image, id } = this.props;
-    const { counter, newPrice } = this.state;
+    const { counter, newPrice, aQuantity } = this.state;
     return (
       <div>
         <div>
@@ -103,6 +107,11 @@ class CartList extends React.Component {
               </p>
             </div>
           </section>
+          <p>
+            Qtd disponível:
+            {' '}
+            { aQuantity }
+          </p>
         </Link>
         <div>
           <button
@@ -145,6 +154,7 @@ CartList.propTypes = {
   title: PropTypes.string,
   image: PropTypes.string,
   price: PropTypes.number,
+  availableQuantity: PropTypes.number,
 }.isRequired;
 
 export default CartList;
