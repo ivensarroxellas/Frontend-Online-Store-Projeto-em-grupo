@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class CardList extends React.Component {
   constructor(props) {
     super(props);
-    const { title, image, price, id } = this.props;
+    const { title, image, price, id, availableQuantity } = this.props;
 
     this.state = {
       cartList: {
@@ -14,6 +14,7 @@ class CardList extends React.Component {
         prodId: id,
         prodImage: image,
         prodQTD: 1,
+        aQuantity: availableQuantity,
       },
     };
   }
@@ -30,7 +31,7 @@ class CardList extends React.Component {
 
   handleCart = () => {
     const { cartList } = this.state;
-    const { title, image, price, id } = this.props;
+    const { title, image, price, id, availableQuantity } = this.props;
     if (!JSON.parse(localStorage.getItem('cartList'))) {
       localStorage.setItem('cartList', JSON.stringify([]));
     }
@@ -55,6 +56,7 @@ class CardList extends React.Component {
             prodId: id,
             prodImage: image,
             prodQTD: 1,
+            aQuantity: availableQuantity,
           },
         }));
         this.saveList([...localList, cartList]);
@@ -106,6 +108,7 @@ CardList.propTypes = {
   title: PropTypes.string,
   image: PropTypes.string,
   price: PropTypes.number,
+  availableQuantity: PropTypes.number,
 }.isRequired;
 
 export default CardList;
