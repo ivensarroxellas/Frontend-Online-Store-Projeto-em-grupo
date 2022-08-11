@@ -31,7 +31,7 @@ class CardList extends React.Component {
 
   handleCart = () => {
     const { cartList } = this.state;
-    const { title, image, price, id, availableQuantity } = this.props;
+    const { title, image, price, id, availableQuantity, cCItens } = this.props;
     if (!JSON.parse(localStorage.getItem('cartList'))) {
       localStorage.setItem('cartList', JSON.stringify([]));
     }
@@ -46,7 +46,7 @@ class CardList extends React.Component {
             ...cartList,
             prodQTD: previous.cartList.prodQTD + 1,
           },
-        }), () => localStorage.removeItem('cartList'));
+        }));
       } else {
         this.setState(() => ({
           cartList: {
@@ -62,6 +62,7 @@ class CardList extends React.Component {
         this.saveList([...localList, cartList]);
       }
     });
+    cCItens();
   };
 
   handleCards = () => {

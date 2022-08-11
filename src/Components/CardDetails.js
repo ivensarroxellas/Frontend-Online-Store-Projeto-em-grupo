@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
+// import CountCartItens from './CountCartItens';
 
 class CardDetails extends React.Component {
   constructor(props) {
@@ -16,7 +17,12 @@ class CardDetails extends React.Component {
         prodQTD: 1,
       },
       ready: false,
+      countCartItens: 0,
     };
+  }
+
+  componentDidMount() {
+    this.countCart();
   }
 
   readList = () => JSON.parse(localStorage.getItem('cartList'));
@@ -46,7 +52,7 @@ class CardDetails extends React.Component {
             ...cartList,
             prodQTD: previous.cartList.prodQTD + 1,
           },
-        }), () => localStorage.removeItem('cartList'));
+        }));
       } else {
         this.setState(() => ({
           cartList: {
@@ -61,15 +67,36 @@ class CardDetails extends React.Component {
         this.saveList([...localList, cartList]);
       }
     });
+    this.countCart();
   };
 
   redirectToCart = () => {
     this.setState({ ready: true });
   };
 
+  countCart = () => {
+    if (!JSON.parse(localStorage.getItem('cartList'))) {
+      localStorage.setItem('cartList', JSON.stringify([]));
+    }
+    const localList = this.readList();
+    if (localList.length === 0) {
+      this.setState(({
+        countCartItens: 0,
+      }));
+    } else {
+      let cartCount = 0;
+      localList.forEach((element) => {
+        cartCount += element.prodQTD;
+      });
+      this.setState(({
+        countCartItens: cartCount,
+      }));
+    }
+  }
+
   handleCards = () => {
     const { title, image, price, id } = this.props;
-    const { ready } = this.state;
+    const { ready, countCartItens } = this.state;
     return (
       <div>
         <Link to={ `/product/${id}` }>
@@ -95,6 +122,10 @@ class CardDetails extends React.Component {
           onClick={ this.handleCart }
         >
           Adicionar ao Carrinho
+          {' '}
+          <span data-testid="shopping-cart-size">
+            { countCartItens }
+          </span>
         </button>
         <button
           type="button"
