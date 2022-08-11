@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import CardList from '../Components/CardList';
 import Category from '../Components/Category';
+// import CountCartItens from '../Components/CountCartItens';
 import * as api from '../services/api';
 
 class MainScreen extends Component {
@@ -14,7 +15,12 @@ class MainScreen extends Component {
       nameEntered: '',
       ready: false,
       products: [],
+      countCartItens: 0,
     };
+  }
+
+  componentDidMount() {
+    this.countCart();
   }
 
   handleClicktoCart = (event) => {
@@ -52,10 +58,31 @@ class MainScreen extends Component {
     });
   }
 
-  render() {
-    const { ready, nameEntered, products, searchResult } = this.state;
-    const { clicked } = this.props;
+  readList = () => JSON.parse(localStorage.getItem('cartList'));
 
+  countCart = () => {
+    if (!JSON.parse(localStorage.getItem('cartList'))) {
+      localStorage.setItem('cartList', JSON.stringify([]));
+    }
+    const localList = this.readList();
+    if (localList.length === 0) {
+      this.setState(({
+        countCartItens: 0,
+      }));
+    } else {
+      let cartCount = 0;
+      localList.forEach((element) => {
+        cartCount += element.prodQTD;
+      });
+      this.setState(({
+        countCartItens: cartCount,
+      }));
+    }
+  }
+
+  render() {
+    const { ready, nameEntered, products, searchResult, countCartItens } = this.state;
+    const { clicked } = this.props;
     return (
       <div>
         { ready && <Redirect push to="/cart" />}
@@ -136,6 +163,7 @@ class MainScreen extends Component {
                   availableQuantity={ element.available_quantity }
                   freeShipping={ element.shipping.free_shipping }
                   onClick={ this.handleCartItem }
+                  cCItens={ this.countCart }
                 />
                 ))
             }
@@ -147,6 +175,10 @@ class MainScreen extends Component {
           onClick={ this.handleClicktoCart }
         >
           Carrinho de Compras
+          {' '}
+          <span data-testid="shopping-cart-size">
+            { countCartItens }
+          </span>
         </button>
       </div>
     );
